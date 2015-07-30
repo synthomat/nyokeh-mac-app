@@ -7,13 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC3E91081B6AD68A0095AFC4 /* UploadHistoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3E91061B6AD68A0095AFC4 /* UploadHistoryController.swift */; };
+		DC3E91091B6AD68A0095AFC4 /* UploadHistoryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC3E91071B6AD68A0095AFC4 /* UploadHistoryController.xib */; };
 		DCA89CA11B692BB90095AFC4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA89CA01B692BB90095AFC4 /* AppDelegate.swift */; };
 		DCA89CA31B692BB90095AFC4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DCA89CA21B692BB90095AFC4 /* Images.xcassets */; };
 		DCA89CA61B692BB90095AFC4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = DCA89CA41B692BB90095AFC4 /* MainMenu.xib */; };
 		DCA89CB21B692BB90095AFC4 /* NyokehTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA89CB11B692BB90095AFC4 /* NyokehTests.swift */; };
 		DCA89CBC1B692F020095AFC4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA89CBB1B692F020095AFC4 /* ViewController.swift */; };
-		DCD345691B6933CC0095AFC4 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCD345681B6933CC0095AFC4 /* Alamofire.framework */; };
-		E02A8E40AB54D25942D42845 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1994B60994CED1FD55917734 /* Pods.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		DCD345691B6933CC0095AFC4 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCD345681B6933CC0095AFC4 /* Alamofire.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		E02A8E40AB54D25942D42845 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1994B60994CED1FD55917734 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +31,8 @@
 /* Begin PBXFileReference section */
 		0B973FBD18661E1AAFA2EB35 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		1994B60994CED1FD55917734 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC3E91061B6AD68A0095AFC4 /* UploadHistoryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadHistoryController.swift; sourceTree = "<group>"; };
+		DC3E91071B6AD68A0095AFC4 /* UploadHistoryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadHistoryController.xib; sourceTree = "<group>"; };
 		DCA89C9B1B692BB90095AFC4 /* Nyokeh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nyokeh.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCA89C9F1B692BB90095AFC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DCA89CA01B692BB90095AFC4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -47,8 +51,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DCD345691B6933CC0095AFC4 /* Alamofire.framework in Frameworks */,
 				E02A8E40AB54D25942D42845 /* Pods.framework in Frameworks */,
+				DCD345691B6933CC0095AFC4 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +103,8 @@
 				DCA89CA41B692BB90095AFC4 /* MainMenu.xib */,
 				DCA89C9E1B692BB90095AFC4 /* Supporting Files */,
 				DCA89CBB1B692F020095AFC4 /* ViewController.swift */,
+				DC3E91061B6AD68A0095AFC4 /* UploadHistoryController.swift */,
+				DC3E91071B6AD68A0095AFC4 /* UploadHistoryController.xib */,
 			);
 			path = Nyokeh;
 			sourceTree = "<group>";
@@ -222,6 +228,7 @@
 			files = (
 				DCA89CA31B692BB90095AFC4 /* Images.xcassets in Resources */,
 				DCA89CA61B692BB90095AFC4 /* MainMenu.xib in Resources */,
+				DC3E91091B6AD68A0095AFC4 /* UploadHistoryController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +294,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC3E91081B6AD68A0095AFC4 /* UploadHistoryController.swift in Sources */,
 				DCA89CBC1B692F020095AFC4 /* ViewController.swift in Sources */,
 				DCA89CA11B692BB90095AFC4 /* AppDelegate.swift in Sources */,
 			);
@@ -414,6 +422,7 @@
 				);
 				INFOPLIST_FILE = Nyokeh/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -430,6 +439,7 @@
 				);
 				INFOPLIST_FILE = Nyokeh/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

@@ -10,16 +10,26 @@ import Cocoa
 import Alamofire
 
 class ViewController: NSViewController {
+  @IBOutlet weak var prefWindow: NSWindow!
+  
+  var defaults: NSUserDefaults!
+  
+  
+  override func viewDidLoad() {
+      super.viewDidLoad()
+      // Do view setup here.
+      defaults = NSUserDefaults.standardUserDefaults();
+  }
+  
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do view setup here.
-    }
   
   func upload(filePath: String) {
+    var serverPath = defaults.stringForKey("server")?.stringByAppendingPathComponent("upload")
+    var authKey = defaults.stringForKey("authKey")
+    
     Alamofire.upload(
       .POST,
-      URLString: "http://localhost:3000/upload?key=f5f92673ec36e5f0055ae3dcbb8da4457a16a6f9",
+      URLString: "\(serverPath!)?auth=\(authKey!)",
       multipartFormData: { multipartFormData in
         multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: filePath)!, name: "file")
       },
@@ -33,9 +43,27 @@ class ViewController: NSViewController {
 
             upload.responseJSON { request, response, JSON, error in
               println(JSON);
+              let code = response?.statusCode;
+
+              if (!contains([200, 201], code!)) {
+                return;
+              }
+
               let jsonResult = JSON as! Dictionary<String, String>
               
-              NSWorkspace.sharedWorkspace().openURL(NSURL(string: jsonResult["url"]!)!)
+              if (self.defaults.boolForKey("shallOpenInBrowser")) {
+                NSWorkspace.sharedWorkspace().openURL(NSURL(string: jsonResult["url"]!)!)
+              }
+              
+              if (self.defaults.boolForKey("shallCopyToClipboard")) {
+                var pasteBoard = NSPasteboard.generalPasteboard()
+                
+                // first you must clear the contents of the clipboard in order to write to it.
+                pasteBoard.clearContents()
+                
+                // now read write our String and an Array with 1 item at index 0
+                pasteBoard.writeObjects([jsonResult["url"]!]);
+              }
               
               let fileManager = NSFileManager.defaultManager()
               fileManager.removeItemAtPath("/tmp/screencap.png", error: nil)
@@ -51,7 +79,7 @@ class ViewController: NSViewController {
   @IBAction func takeScreenshot(sender: AnyObject) {
     let task = NSTask()
     task.launchPath = "/usr/sbin/screencapture"
-    task.arguments = ["-C", "-i", "/tmp/screencap.png"]
+    task.arguments = ["-C", "-W", "/tmp/screencap.png"]
     
     
     task.launch()
@@ -61,5 +89,30 @@ class ViewController: NSViewController {
       upload("/tmp/screencap.png")
     }
 
+  }
+  
+  @IBAction func testConnection(sender: AnyObject) {
+    var serverPath = defaults.stringForKey("server")?.stringByAppendingPathComponent("check")
+    var authKey = defaults.stringForKey("authKey")
+    
+    Alamofire.request(.GET, "\(serverPath!)?auth=\(authKey!)")
+      .responseJSON { _, _, JSON, _ in
+        let alert:NSAlert = NSAlert();
+        alert.messageText = "Info";
+        
+        if (JSON!["auth"] as! String == "valid") {
+          alert.informativeText = "Okay!";
+        } else {
+          alert.informativeText = "Error! Please check credentials.";
+        }
+        
+        alert.runModal();
+    }
+  }
+  
+
+  @IBAction func showPreferences(sender: AnyObject) {
+    prefWindow.makeKeyAndOrderFront(self)
+    NSApp.activateIgnoringOtherApps(true)
   }
 }
