@@ -42,7 +42,7 @@ class ViewController: NSViewController {
             }
 
             upload.responseJSON { request, response, JSON, error in
-              println(JSON);
+
               let code = response?.statusCode;
 
               if (!contains([200, 201], code!)) {
@@ -50,19 +50,22 @@ class ViewController: NSViewController {
               }
 
               let jsonResult = JSON as! Dictionary<String, String>
+              NSSound(named: "Bottle.aiff")?.play()
+              let url = jsonResult["url"]!
               
               if (self.defaults.boolForKey("shallOpenInBrowser")) {
-                NSWorkspace.sharedWorkspace().openURL(NSURL(string: jsonResult["url"]!)!)
+                NSWorkspace.sharedWorkspace().openURL(NSURL(string: url)!)
               }
               
               if (self.defaults.boolForKey("shallCopyToClipboard")) {
                 var pasteBoard = NSPasteboard.generalPasteboard()
+
                 
                 // first you must clear the contents of the clipboard in order to write to it.
                 pasteBoard.clearContents()
                 
                 // now read write our String and an Array with 1 item at index 0
-                pasteBoard.writeObjects([jsonResult["url"]!]);
+                pasteBoard.writeObjects([url]);
               }
               
               let fileManager = NSFileManager.defaultManager()
@@ -80,7 +83,6 @@ class ViewController: NSViewController {
     let task = NSTask()
     task.launchPath = "/usr/sbin/screencapture"
     task.arguments = ["-C", "-W", "/tmp/screencap.png"]
-    
     
     task.launch()
     task.waitUntilExit()

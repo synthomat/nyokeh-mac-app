@@ -26,11 +26,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     statusItem.image = NSImage(named: "NyokehMenuIcon")
     statusItem.button?.action = Selector("togglePopover:")
 
+
   
-    popover.contentViewController = UploadHistoryController(nibName: "UploadHistoryController", bundle: nil)
+    //popover.contentViewController = UploadHistoryController(nibName: "UploadHistoryController", bundle: nil)
     
-    //statusItem.title = "Nyokeh"
-    //statusItem.menu = menu;
+
+    statusItem.menu = menu;
     
     
   }
