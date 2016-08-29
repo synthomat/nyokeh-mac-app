@@ -14,8 +14,9 @@
 		DCA89CA61B692BB90095AFC4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = DCA89CA41B692BB90095AFC4 /* MainMenu.xib */; };
 		DCA89CB21B692BB90095AFC4 /* NyokehTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA89CB11B692BB90095AFC4 /* NyokehTests.swift */; };
 		DCA89CBC1B692F020095AFC4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA89CBB1B692F020095AFC4 /* ViewController.swift */; };
+		DCC5A1FA1D71D5AD0095AFC4 /* NyokehApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC5A1F91D71D5AD0095AFC4 /* NyokehApi.swift */; };
 		DCD345691B6933CC0095AFC4 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCD345681B6933CC0095AFC4 /* Alamofire.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		E02A8E40AB54D25942D42845 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1994B60994CED1FD55917734 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		E02A8E40AB54D25942D42845 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1994B60994CED1FD55917734 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		DCA89CB01B692BB90095AFC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DCA89CB11B692BB90095AFC4 /* NyokehTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NyokehTests.swift; sourceTree = "<group>"; };
 		DCA89CBB1B692F020095AFC4 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DCC5A1F91D71D5AD0095AFC4 /* NyokehApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NyokehApi.swift; sourceTree = "<group>"; };
 		DCD345681B6933CC0095AFC4 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Pods/../build/Debug/Pods/Alamofire.framework; sourceTree = "<group>"; };
 		EA2B064CA892B83E3D46CED8 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,6 +107,7 @@
 				DCA89CBB1B692F020095AFC4 /* ViewController.swift */,
 				DC3E91061B6AD68A0095AFC4 /* UploadHistoryController.swift */,
 				DC3E91071B6AD68A0095AFC4 /* UploadHistoryController.xib */,
+				DCC5A1F91D71D5AD0095AFC4 /* NyokehApi.swift */,
 			);
 			path = Nyokeh;
 			sourceTree = "<group>";
@@ -190,7 +193,9 @@
 		DCA89C931B692BB90095AFC4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Anton Zering";
 				TargetAttributes = {
 					DCA89C9A1B692BB90095AFC4 = {
@@ -296,6 +301,7 @@
 			files = (
 				DC3E91081B6AD68A0095AFC4 /* UploadHistoryController.swift in Sources */,
 				DCA89CBC1B692F020095AFC4 /* ViewController.swift in Sources */,
+				DCC5A1FA1D71D5AD0095AFC4 /* NyokehApi.swift in Sources */,
 				DCA89CA11B692BB90095AFC4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -351,6 +357,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -423,6 +430,7 @@
 				INFOPLIST_FILE = Nyokeh/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.synthomat.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -440,6 +448,7 @@
 				INFOPLIST_FILE = Nyokeh/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.synthomat.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -459,6 +468,7 @@
 				);
 				INFOPLIST_FILE = NyokehTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.synthomat.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Nyokeh.app/Contents/MacOS/Nyokeh";
 			};
@@ -475,6 +485,7 @@
 				);
 				INFOPLIST_FILE = NyokehTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.synthomat.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Nyokeh.app/Contents/MacOS/Nyokeh";
 			};

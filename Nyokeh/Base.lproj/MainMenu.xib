@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -35,12 +35,12 @@
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Server" identifier="1" id="c20-bO-yoM">
-                                <view key="view" id="UIu-az-SB6">
-                                    <rect key="frame" x="10" y="33" width="420" height="117"/>
+                                <view key="view" ambiguous="YES" id="UIu-az-SB6">
+                                    <rect key="frame" x="10" y="33" width="138" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ag3-N9-yyE">
-                                            <rect key="frame" x="15" y="94" width="48" height="17"/>
+                                            <rect key="frame" x="15" y="-23" width="48" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Server:" id="jdd-Ae-QwE">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -48,14 +48,14 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rii-1J-dA6">
-                                            <rect key="frame" x="69" y="92" width="334" height="22"/>
+                                            <rect key="frame" x="69" y="-25" width="334" height="22"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="TwO-QR-nGR">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                             <connections>
-                                                <binding destination="hJm-BS-LpN" name="value" keyPath="values.server" id="p3I-in-Msm">
+                                                <binding destination="uev-A0-QHy" name="value" keyPath="values.server" id="esk-Lv-Hka">
                                                     <dictionary key="options">
                                                         <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                                         <string key="NSNullPlaceholder">http://nyokeh.synthomat.de</string>
@@ -64,7 +64,7 @@
                                             </connections>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S1a-ml-abw">
-                                            <rect key="frame" x="31" y="64" width="32" height="17"/>
+                                            <rect key="frame" x="31" y="-53" width="32" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Key:" id="mMV-PK-O1Q">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -72,14 +72,14 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OZG-zb-TF6">
-                                            <rect key="frame" x="69" y="62" width="334" height="22"/>
+                                            <rect key="frame" x="69" y="-55" width="334" height="22"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="4yI-x9-JJw">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                             <connections>
-                                                <binding destination="hJm-BS-LpN" name="value" keyPath="values.authKey" id="w0u-PQ-LTM">
+                                                <binding destination="uev-A0-QHy" name="value" keyPath="values.authKey" id="CNG-aI-6LA">
                                                     <dictionary key="options">
                                                         <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                                     </dictionary>
@@ -87,7 +87,7 @@
                                             </connections>
                                         </textField>
                                         <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zSz-Vc-huU">
-                                            <rect key="frame" x="179" y="17" width="87" height="17"/>
+                                            <rect key="frame" x="179" y="-100" width="87" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Status: waiting…" id="lim-Yo-dy9">
                                                 <font key="font" metaFont="system" size="10"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -95,7 +95,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kiP-Xo-mUu">
-                                            <rect key="frame" x="269" y="10" width="140" height="32"/>
+                                            <rect key="frame" x="269" y="-107" width="140" height="32"/>
                                             <buttonCell key="cell" type="push" title="Test Connection" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zV7-XO-zwk">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -119,7 +119,7 @@
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
                                             <connections>
-                                                <binding destination="hJm-BS-LpN" name="value" keyPath="values.shallCopyToClipboard" id="fsM-n3-qbU">
+                                                <binding destination="uev-A0-QHy" name="value" keyPath="values.shallCopyToClipboard" id="I3B-bn-net">
                                                     <dictionary key="options">
                                                         <integer key="NSNullPlaceholder" value="1"/>
                                                     </dictionary>
@@ -133,7 +133,7 @@
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
                                             <connections>
-                                                <binding destination="hJm-BS-LpN" name="value" keyPath="values.shallOpenInBrowser" id="Hoq-ZE-1cE">
+                                                <binding destination="uev-A0-QHy" name="value" keyPath="values.shallOpenInBrowser" id="8es-bb-5fN">
                                                     <dictionary key="options">
                                                         <integer key="NSNullPlaceholder" value="0"/>
                                                     </dictionary>
@@ -154,7 +154,14 @@
                 <menuItem title="Screenshot…" id="ypk-JO-o8k">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="takeScreenshot:" target="nse-If-qC7" id="xV0-XL-55D"/>
+                        <action selector="takeScreenshot:" target="nse-If-qC7" id="aZw-5U-6Od"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Last URL" id="7UX-ce-cFh">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="openInBrowserHandler:" target="nse-If-qC7" id="Voh-Ac-3oF"/>
+                        <binding destination="uev-A0-QHy" name="title" keyPath="values.lastUrl" id="dcX-f4-uhF"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="MJ1-LG-QSE"/>
@@ -445,6 +452,6 @@
             </items>
             <point key="canvasLocation" x="368" y="520.5"/>
         </menu>
-        <userDefaultsController representsSharedInstance="YES" id="dLm-gJ-MyA"/>
+        <userDefaultsController representsSharedInstance="YES" id="uev-A0-QHy"/>
     </objects>
 </document>

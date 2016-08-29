@@ -24,16 +24,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // Insert code here to initialize your application
     statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-1)
     statusItem.image = NSImage(named: "NyokehMenuIcon")
-    statusItem.button?.action = Selector("togglePopover:")
-
-
+    statusItem.button?.action = #selector(AppDelegate.togglePopover(_:))
   
-    //popover.contentViewController = UploadHistoryController(nibName: "UploadHistoryController", bundle: nil)
+    popover.contentViewController = UploadHistoryController(nibName: "UploadHistoryController", bundle: nil)
     
 
-    statusItem.menu = menu;
-    
-    
+    statusItem.menu = menu;    
   }
 
   func applicationWillTerminate(aNotification: NSNotification) {
@@ -42,7 +38,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   
   func showPopover(sender: AnyObject?) {
     if let button = statusItem.button {
-      popover.showRelativeToRect(button.bounds, ofView: button, preferredEdge: NSMinYEdge)
+      popover.showRelativeToRect(button.bounds, ofView: button, preferredEdge: NSRectEdge.MinY)
     }
   }
   

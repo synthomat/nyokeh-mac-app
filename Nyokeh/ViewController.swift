@@ -3,115 +3,107 @@
 //  Nyokeh
 //
 //  Created by Anton Zering on 29.07.15.
-//  Copyright (c) 2015 Anton Zering. All rights reserved.
+//  Copyright (c) 2015–2016 Anton Zering. All rights reserved.
 //
 
 import Cocoa
 import Alamofire
 
+struct Config {
+  var url: String = ""
+}
+
+
+
 class ViewController: NSViewController {
   @IBOutlet weak var prefWindow: NSWindow!
   
-  var defaults: NSUserDefaults!
-  
+  var config: NSUserDefaults!
+  let api = NyokehApi()
+  let tempFileName = "/tmp/screencap.png"
   
   override func viewDidLoad() {
-      super.viewDidLoad()
-      // Do view setup here.
-      defaults = NSUserDefaults.standardUserDefaults();
+    super.viewDidLoad()
+
+    config = NSUserDefaults.standardUserDefaults()
+
+    api.serverUrl = config.stringForKey("server")
+    api.apiKey = config.stringForKey("authKey")
   }
   
+  ///
+  ///
+  ///
+  func notify(url: String) {
+    NSSound(named: "Bottle.aiff")?.play()
+  }
+  
+  func copyUrlToClipboard(url: String) {
+    let pasteBoard = NSPasteboard.generalPasteboard()
+    
+    
+    // first you must clear the contents of the clipboard in order to write to it.
+    pasteBoard.clearContents()
+    
+    // now read write our String and an Array with 1 item at index 0
+    pasteBoard.writeObjects([url]);
+  }
 
   
-  func upload(filePath: String) {
-    var serverPath = defaults.stringForKey("server")?.stringByAppendingPathComponent("upload")
-    var authKey = defaults.stringForKey("authKey")
-    
-    Alamofire.upload(
-      .POST,
-      URLString: "\(serverPath!)?auth=\(authKey!)",
-      multipartFormData: { multipartFormData in
-        multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: filePath)!, name: "file")
-      },
+  func uploadFile(filePath: String) {
+    api.uploadFile(
+      NSURL(fileURLWithPath: filePath),
       
-      encodingCompletion: { result in
-        switch result {
-          case .Success(let upload, _, _):
-            upload.progress { (_, bytesWritten, totalBytes) -> Void in
-              //println(bytesWritten)
-            }
-
-            upload.responseJSON { request, response, JSON, error in
-
-              let code = response?.statusCode;
-
-              if (!contains([200, 201], code!)) {
-                return;
-              }
-
-              let jsonResult = JSON as! Dictionary<String, String>
-              NSSound(named: "Bottle.aiff")?.play()
-              let url = jsonResult["url"]!
-              
-              if (self.defaults.boolForKey("shallOpenInBrowser")) {
-                NSWorkspace.sharedWorkspace().openURL(NSURL(string: url)!)
-              }
-              
-              if (self.defaults.boolForKey("shallCopyToClipboard")) {
-                var pasteBoard = NSPasteboard.generalPasteboard()
-
-                
-                // first you must clear the contents of the clipboard in order to write to it.
-                pasteBoard.clearContents()
-                
-                // now read write our String and an Array with 1 item at index 0
-                pasteBoard.writeObjects([url]);
-              }
-              
-              let fileManager = NSFileManager.defaultManager()
-              fileManager.removeItemAtPath("/tmp/screencap.png", error: nil)
-            }
-          case .Failure(let encodingError):
-            println(encodingError);
+      completion: { fileUrl in
+        self.notify(fileUrl)
+        
+        self.config.setValue(fileUrl, forKey: "lastUrl")
+        
+        if (self.config.boolForKey("shallOpenInBrowser")) {
+          self.openInBrowser(fileUrl)
+        }
+        
+        if (self.config.boolForKey("shallCopyToClipboard")) {
+          self.copyUrlToClipboard(fileUrl)
         }
       }
     )
-    
+  }
+  
+  func openInBrowser(url: String) {
+    NSWorkspace.sharedWorkspace().openURL(NSURL(string: url)!)
   }
   
   @IBAction func takeScreenshot(sender: AnyObject) {
-    let task = NSTask()
-    task.launchPath = "/usr/sbin/screencapture"
-    task.arguments = ["-C", "-W", "/tmp/screencap.png"]
+    let task = NSTask.launchedTaskWithLaunchPath(
+      "/usr/sbin/screencapture",
+      arguments: ["-C", "-W", tempFileName]
+    )
     
-    task.launch()
     task.waitUntilExit()
     
-    if (task.terminationStatus == 0) {
-      upload("/tmp/screencap.png")
+    if (task.terminationStatus != 0) {
+      return
     }
 
+    uploadFile(tempFileName)
   }
   
   @IBAction func testConnection(sender: AnyObject) {
-    var serverPath = defaults.stringForKey("server")?.stringByAppendingPathComponent("check")
-    var authKey = defaults.stringForKey("authKey")
-    
-    Alamofire.request(.GET, "\(serverPath!)?auth=\(authKey!)")
-      .responseJSON { _, _, JSON, _ in
-        let alert:NSAlert = NSAlert();
-        alert.messageText = "Info";
-        
-        if (JSON!["auth"] as! String == "valid") {
-          alert.informativeText = "Okay!";
-        } else {
-          alert.informativeText = "Error! Please check credentials.";
-        }
-        
-        alert.runModal();
+    api.testConnection { isValid in
+      let alert = NSAlert()
+      alert.messageText = "Info"
+      alert.informativeText = isValid ? "Okay!" : "Error! Please check credentials."
+      alert.runModal();
     }
   }
   
+  
+  @IBAction func openInBrowserHandler(sender: AnyObject) {
+    if let fileUrl = self.config.stringForKey("lastUrl") {
+      self.openInBrowser(fileUrl)
+    }
+  }
 
   @IBAction func showPreferences(sender: AnyObject) {
     prefWindow.makeKeyAndOrderFront(self)
