@@ -20,9 +20,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   
   
   
-  func applicationDidFinishLaunching(aNotification: NSNotification) {
+  func applicationDidFinishLaunching(_ aNotification: Notification) {
     // Insert code here to initialize your application
-    statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-1)
+    statusItem = NSStatusBar.system().statusItem(withLength: -1)
     statusItem.image = NSImage(named: "NyokehMenuIcon")
     statusItem.button?.action = #selector(AppDelegate.togglePopover(_:))
   
@@ -32,26 +32,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     statusItem.menu = menu;    
   }
 
-  func applicationWillTerminate(aNotification: NSNotification) {
+  func applicationWillTerminate(_ aNotification: Notification) {
     // Insert code here to tear down your application
   }
   
-  func showPopover(sender: AnyObject?) {
+  func showPopover(_ sender: AnyObject?) {
     if let button = statusItem.button {
-      popover.showRelativeToRect(button.bounds, ofView: button, preferredEdge: NSRectEdge.MinY)
+      popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
     }
   }
   
-  func closePopover(sender: AnyObject?) {
+  func closePopover(_ sender: AnyObject?) {
     popover.performClose(sender)
   }
 
-  @IBAction func quitApplication(sender: AnyObject) {
-    NSApplication.sharedApplication().terminate(self)
+  @IBAction func quitApplication(_ sender: AnyObject) {
+    NSApplication.shared().terminate(self)
   }
   
-  func togglePopover(sender: AnyObject?) {
-    if popover.shown {
+  func togglePopover(_ sender: AnyObject?) {
+    if popover.isShown {
       closePopover(sender)
     } else {
       showPopover(sender)

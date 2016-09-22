@@ -18,65 +18,65 @@ struct Config {
 class ViewController: NSViewController {
   @IBOutlet weak var prefWindow: NSWindow!
   
-  var config: NSUserDefaults!
+  var config: UserDefaults!
   let api = NyokehApi()
   let tempFileName = "/tmp/screencap.png"
   
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    config = NSUserDefaults.standardUserDefaults()
+    config = UserDefaults.standard
 
-    api.serverUrl = config.stringForKey("server")
-    api.apiKey = config.stringForKey("authKey")
+    api.serverUrl = config.string(forKey: "server")
+    api.apiKey = config.string(forKey: "authKey")
   }
   
   ///
   ///
   ///
-  func notify(url: String) {
+  func notify(_ url: String) {
     NSSound(named: "Bottle.aiff")?.play()
   }
   
-  func copyUrlToClipboard(url: String) {
-    let pasteBoard = NSPasteboard.generalPasteboard()
+  func copyUrlToClipboard(_ url: String) {
+    let pasteBoard = NSPasteboard.general()
     
     
     // first you must clear the contents of the clipboard in order to write to it.
     pasteBoard.clearContents()
     
     // now read write our String and an Array with 1 item at index 0
-    pasteBoard.writeObjects([url]);
+    pasteBoard.writeObjects([url as NSPasteboardWriting]);
   }
 
   
-  func uploadFile(filePath: String) {
+  func uploadFile(_ filePath: String) {
     api.uploadFile(
-      NSURL(fileURLWithPath: filePath),
+      URL(fileURLWithPath: filePath),
       
       completion: { fileUrl in
         self.notify(fileUrl)
         
         self.config.setValue(fileUrl, forKey: "lastUrl")
         
-        if (self.config.boolForKey("shallOpenInBrowser")) {
+        if (self.config.bool(forKey: "shallOpenInBrowser")) {
           self.openInBrowser(fileUrl)
         }
         
-        if (self.config.boolForKey("shallCopyToClipboard")) {
+        if (self.config.bool(forKey: "shallCopyToClipboard")) {
           self.copyUrlToClipboard(fileUrl)
         }
       }
     )
   }
   
-  func openInBrowser(url: String) {
-    NSWorkspace.sharedWorkspace().openURL(NSURL(string: url)!)
+  func openInBrowser(_ url: String) {
+    NSWorkspace.shared().open(URL(string: url)!)
   }
   
-  @IBAction func takeScreenshot(sender: AnyObject) {
-    let task = NSTask.launchedTaskWithLaunchPath(
-      "/usr/sbin/screencapture",
+  @IBAction func takeScreenshot(_ sender: AnyObject) {
+    let task = Process.launchedProcess(
+      launchPath: "/usr/sbin/screencapture",
       arguments: ["-C", "-W", tempFileName]
     )
     
@@ -89,7 +89,7 @@ class ViewController: NSViewController {
     uploadFile(tempFileName)
   }
   
-  @IBAction func testConnection(sender: AnyObject) {
+  @IBAction func testConnection(_ sender: AnyObject) {
     api.testConnection { isValid in
       let alert = NSAlert()
       alert.messageText = "Info"
@@ -99,14 +99,14 @@ class ViewController: NSViewController {
   }
   
   
-  @IBAction func openInBrowserHandler(sender: AnyObject) {
-    if let fileUrl = self.config.stringForKey("lastUrl") {
+  @IBAction func openInBrowserHandler(_ sender: AnyObject) {
+    if let fileUrl = self.config.string(forKey: "lastUrl") {
       self.openInBrowser(fileUrl)
     }
   }
 
-  @IBAction func showPreferences(sender: AnyObject) {
+  @IBAction func showPreferences(_ sender: AnyObject) {
     prefWindow.makeKeyAndOrderFront(self)
-    NSApp.activateIgnoringOtherApps(true)
+    NSApp.activate(ignoringOtherApps: true)
   }
 }

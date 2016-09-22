@@ -9,11 +9,11 @@
 import Foundation
 import Alamofire
 
-public class NyokehApi {
+open class NyokehApi {
   var serverUrl: String!
   var apiKey: String!
   
-  private func composeUrl(subPath: String) -> String {
+  fileprivate func composeUrl(_ subPath: String) -> String {
     return serverUrl + subPath + "?auth=" + apiKey
   }
   
@@ -23,7 +23,7 @@ public class NyokehApi {
   /// - parameters:
   ///   - int: A pointless `Int` parameter.
   ///   - bool: This `Bool` isn't used, but its default value is `false` anyway…
-  func testConnection(completion: (isValid: Bool) -> Void) {
+  func testConnection(_ completion: @escaping (_ isValid: Bool) -> Void) {
     Alamofire.request(.GET, composeUrl("/check"))
       .responseJSON { (response) -> Void in
         let value = response.result.value as? [String: AnyObject]
@@ -34,9 +34,9 @@ public class NyokehApi {
   }
   
   func uploadFile(
-    path: NSURL,
-    progress: ((bytesWritten: Int64, bytesTotal: Int64) -> Void)! = nil,
-    completion: ((imgUrl: String) -> Void)!
+    _ path: URL,
+    progress: ((_ bytesWritten: Int64, _ bytesTotal: Int64) -> Void)! = nil,
+    completion: ((_ imgUrl: String) -> Void)!
   ) {
     Alamofire.upload(
       .POST,
@@ -48,7 +48,7 @@ public class NyokehApi {
       
       encodingCompletion: { result in
         switch result {
-          case .Success(let upload, _, _):
+          case .success(let upload, _, _):
             
             upload.progress { (_, bytesWritten, totalBytes) -> Void in
               progress?(bytesWritten: bytesWritten, bytesTotal: totalBytes)
@@ -66,7 +66,7 @@ public class NyokehApi {
               
               completion(imgUrl: fileUrl);
             }
-          case .Failure(let encodingError):
+          case .failure(let encodingError):
             print(encodingError);
         }
       }
